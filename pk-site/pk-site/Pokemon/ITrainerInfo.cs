@@ -7,6 +7,7 @@ namespace pk_site.Pokemon
         string Name { get; }
         Genders Gender { get; }
         uint Money { get; }
+        string FormattedMoney { get; }
         IEnumerable<string> Badges { get; }
         string PlayTime { get; }
     }

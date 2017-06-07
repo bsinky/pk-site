@@ -1,30 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
-	<title>@Model.Title</title>
+	<title>@ViewBag.Title</title>
+
+	@foreach (var css in @ViewBag.CSSFiles)
+	{
+		<link href="@css" rel="stylesheet" type="text/css"/>
+	}
 <head>
 </head>
 <body>
 	<h1>@Model.Generation</h1>
 	<div class="trainer">
-		<label>Name: @Model.Trainer.Name</label>
-		<label>@Model.Trainer.Gender</label>
-		<label>Money: @Model.Trainer.Money</label>
-		<label>Play Time: @Model.Trainer.PlayTime</label>
+		<label>Name: @Model.TrainerInfo.Name</label>
+		<label>@Model.TrainerInfo.Gender</label>
+		<label>Money: @Model.TrainerInfo.Money</label>
+		<label>Play Time: @Model.TrainerInfo.PlayTime</label>
 	</div>
 
-	@foreach (IPokemonInfo pokemon in Model.PartyMembers)
-	{
-		<div class="pokemon">
-			<label>@pokemon.Nickname</label>
-			<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
-			<label>@pokemon.Ability</label>
-			<ul class="moves">
-			@foreach (string move in pokemon.Moves)
-			{
-				<li>@move</li>
-			}
-			</ul>
-		</div>
-	}
+	<div class="pokemon-container">
+		@foreach (var pokemon in Model.PartyMembers)
+		{
+			<div class="pokemon">
+				<label>@pokemon.Nickname</label>
+				<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
+				<label>@pokemon.Ability</label>
+				<div class="moves">
+				@foreach (string move in pokemon.Moves)
+				{
+					<div class="move">@move</div>
+				}
+				</div>
+			</div>
+		}
+	</div>
 </body>
 </html>

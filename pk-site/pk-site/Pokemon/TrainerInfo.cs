@@ -23,6 +23,7 @@ namespace pk_site.Pokemon
         public string Name => _name;
         public Genders Gender => _gender;
         public uint Money => _money;
+        public string FormattedMoney => _money.ToString("C");
         public IEnumerable<string> Badges => _badges;
         public string PlayTime => _playTime;
     }

@@ -4,6 +4,7 @@ using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Security.Permissions;
 
@@ -12,7 +13,6 @@ namespace pk_site.Html
     public class HtmlGenerator : IHtmlGenerator
     {
         private string _title;
-        private IPokemonSaveInfo _saveInfo;
 
         public HtmlGenerator(string pageTitle, IPokemonSaveInfo saveInfo)
         {
@@ -42,42 +42,51 @@ namespace pk_site.Html
 
             Directory.CreateDirectory(outputDirectory);
             string outputFile = Path.Combine(outputDirectory, "index.html");
-            string template = "test";
-            string templateFile = "Resources/template.cshtml";
-            var templateSource = new LoadedTemplateSource(template, templateFile);
+            string template = File.ReadAllText("Resources/template.cshtml");
 
-            // TODO: fix
-            var result =
-                    Engine.Razor.RunCompile(templateFile, GetTemplateKey(), null,
-                     new
-                     {
-                         Title = Title,
-                         Trainer = saveInfo.TrainerInfo,
-                         PartyMembers = saveInfo.PartyMembers
-                     });
+            DynamicViewBag viewBag = new DynamicViewBag(new Dictionary<string, object>()
+            {
+                ["Title"] = Title
+            });
 
-            File.WriteAllText(outputFile, result);
+            IEnumerable<string> cssFiles = CopyCSS(outputDirectory);
+            viewBag.AddValue("CSSFiles", cssFiles.ToList());
+
+            // Compile and run Razor template
+            using (StreamWriter outputWriter = new StreamWriter(outputFile))
+            {
+                Engine.Razor.RunCompile(template, "test", outputWriter, saveInfo.GetType(),
+                    saveInfo, viewBag);
+            }
 
             if (domain != null)
+            {
                 // RazorEngine will cleanup. 
                 AppDomain.Unload(domain);
             }
         }
 
-        private ITemplateKey GetTemplateKey()
+        protected virtual IDictionary<string, string> CSSFilesToCopy => new Dictionary<string, string>()
         {
-            return new TemplateKey(Title, ResolveType.Global, null);
+            ["Resources/main.css"] = "main.css"
+        };
+
+        /// <summary>
+        /// Returns an IEnumerable of relative CSS paths copied to relative outputDirectory paths
+        /// </summary>
+        public IEnumerable<string> CopyCSS(string outputDirectory)
+        {
+            foreach (var kvp in CSSFilesToCopy)
+            {
+                File.Copy(kvp.Key, Path.Combine(outputDirectory, kvp.Value), true);
+            }
+
+            return CSSFilesToCopy.Values;
         }
 
-        private class TemplateKey : BaseTemplateKey
+        private void CopyImages(string outputDirectory)
         {
-            public TemplateKey(string name, ResolveType resolveType, 
-                ITemplateKey context) : base(name, resolveType, context) { }
-
-            public override string GetUniqueKeyString()
-            {
-                return Name;
-            }
+            throw new NotImplementedException();
         }
     }
 }

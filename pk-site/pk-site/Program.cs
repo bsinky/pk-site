@@ -23,6 +23,7 @@ namespace pk_site
             renderer.Write(options.OutputDirectory, saveInfo);
 
             Console.WriteLine($"Successfully wrote to {options.OutputDirectory}");
+            Console.WriteLine("DONE");
         }
 
         public class Options
