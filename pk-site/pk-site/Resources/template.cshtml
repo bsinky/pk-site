@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+	<title>@Model.Title</title>
+<head>
+</head>
+<body>
+	<h1>@Model.Generation</h1>
+	<div class="trainer">
+		<label>Name: @Model.Trainer.Name</label>
+		<label>@Model.Trainer.Gender</label>
+		<label>Money: @Model.Trainer.Money</label>
+		<label>Play Time: @Model.Trainer.PlayTime</label>
+	</div>
+
+	@foreach (IPokemonInfo pokemon in Model.PartyMembers)
+	{
+		<div class="pokemon">
+			<label>@pokemon.Nickname</label>
+			<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
+			<label>@pokemon.Ability</label>
+			<ul class="moves">
+			@foreach (string move in pokemon.Moves)
+			{
+				<li>@move</li>
+			}
+			</ul>
+		</div>
+	}
+</body>
+</html>

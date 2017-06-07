@@ -1,9 +1,8 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using PKHeX.Core;
+using pk_site.Html;
+using pk_site.Pokemon;
 using System;
-using System.IO;
-using System.Linq;
 
 namespace pk_site
 {
@@ -18,43 +17,21 @@ namespace pk_site
                 return;
             }
 
-            byte[] saveFileBytes = File.ReadAllBytes(options.SaveFilePath);
+            IPokemonSaveInfo saveInfo = new PKHeXSaveInfo(options.Language, options.SaveFilePath);
+            IHtmlGenerator renderer = saveInfo.GetHtmlGenerator();
 
-            var saveFile = SaveUtil.getVariantSAV(saveFileBytes);
-            var speciesList = Util.getSpeciesList(options.Language);
-            var itemList = Util.getItemsList(options.Language);
-            var abilityList = Util.getAbilitiesList(options.Language);
-            var movesList = Util.getMovesList(options.Language);
+            renderer.Write(options.OutputDirectory, saveInfo);
 
-            Console.WriteLine($"Generation: {saveFile.Generation}");
-            Console.WriteLine($"Party Count: {saveFile.PartyCount}");
-
-            for (var x = 0; x < saveFile.PartyData.Length; x++)
-            {
-                var partyMember = saveFile.PartyData[x];
-                var species = speciesList[partyMember.Species];
-                var pokeball = itemList[partyMember.Ball];
-                var ability = abilityList[partyMember.Ability];
-                var nickname = partyMember.Nickname;
-                var moves = partyMember.Moves.Select((move, index) => $"{index + 1}: {movesList[move]}");
-
-                Console.WriteLine($"Pokemon {x + 1}:");
-                Console.WriteLine($"  {nickname}");
-                Console.WriteLine($"  Lvl {partyMember.CurrentLevel} {species}");
-                Console.WriteLine($"  Ball: {pokeball}");
-                Console.WriteLine($"  Ability: {ability}");
-                Console.WriteLine("  Moves:");
-                foreach (var move in moves)
-                {
-                    Console.WriteLine($"    {move}");
-                }
-            }
+            Console.WriteLine($"Successfully wrote to {options.OutputDirectory}");
         }
 
         public class Options
         {
             [Option('p', "path", Required = true, HelpText = "Path to the save file")]
             public string SaveFilePath { get; set; }
+
+            [Option('o', "output", DefaultValue = "output/", HelpText = "Path to the output directory")]
+            public string OutputDirectory { get; set; }
 
             [Option('l', "language", DefaultValue = "en", HelpText = "Language of PKHeX resource files to use")]
             public string Language { get; set; }
