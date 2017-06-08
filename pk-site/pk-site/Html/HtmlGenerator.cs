@@ -21,8 +21,6 @@ namespace pk_site.Html
 
         public string Title => _title;
 
-        public IEnumerable<IPokemonInfo> PartyPokemon => throw new NotImplementedException();
-
         public void Write(string outputDirectory, IPokemonSaveInfo saveInfo)
         {
             AppDomain domain = null;
@@ -84,9 +82,12 @@ namespace pk_site.Html
             return CSSFilesToCopy.Values;
         }
 
-        private void CopyImages(string outputDirectory)
+        private void CopyImages(string outputDirectory, IPokemonSaveInfo saveInfo)
         {
-            throw new NotImplementedException();
+            foreach (var pokemon in saveInfo.PartyMembers)
+            {
+
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-@charset "UTF-8"
+﻿@charset "UTF-8"
 
 body {
 	background-color: #d1d1f5;
@@ -38,8 +38,18 @@ body {
 	margin-top: 8px;
 }
 
-.moves > .move {
+.moves .move {
 	display: block;
 	padding: 5px;
-	width: 100%;
+	width: 97%;
+	border-bottom: 1px dashed #6a6777;
+}
+
+.pokemon-image {
+	display: inline;
+}
+
+.pokemon-image img {
+    vertical-align: middle;
+    width: 75px;
 }

@@ -17,7 +17,7 @@ namespace pk_site
                 return;
             }
 
-            IPokemonSaveInfo saveInfo = new PKHeXSaveInfo(options.Language, options.SaveFilePath);
+            IPokemonSaveInfo saveInfo = new PKHeXSaveInfo(options.Language, options.SaveFilePath, options.OutputDirectory);
             IHtmlGenerator renderer = saveInfo.GetHtmlGenerator();
 
             renderer.Write(options.OutputDirectory, saveInfo);

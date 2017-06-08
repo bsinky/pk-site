@@ -10,9 +10,10 @@ namespace pk_site.Pokemon
         private string _nickname;
         private int _level;
         private IEnumerable<string> _moves;
+        private string _imagePath;
 
         public PokemonInfo(string species, string ball, string ability,
-            string nickname, int level, IEnumerable<string> moves)
+            string nickname, int level, IEnumerable<string> moves, string imagePath)
         {
             _species = species;
             _ball = ball;
@@ -20,6 +21,7 @@ namespace pk_site.Pokemon
             _nickname = nickname;
             _level = level;
             _moves = moves;
+            _imagePath = imagePath;
         }
 
         public string Species => _species;
@@ -28,5 +30,6 @@ namespace pk_site.Pokemon
         public string Nickname => _nickname;
         public int CurrentLevel => _level;
         public IEnumerable<string> Moves => _moves;
+        public string ImagePath => _imagePath;
     }
 }

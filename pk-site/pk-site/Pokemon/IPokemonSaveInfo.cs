@@ -1,5 +1,6 @@
 ﻿using pk_site.Html;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace pk_site.Pokemon
 {
@@ -11,7 +12,8 @@ namespace pk_site.Pokemon
         string GetSpecies(int species);
         string GetAbility(int ability);
         string GetMove(int move);
-        string Generation { get; }
+        string GameTitle { get; }
+        string Version { get; }
         IHtmlGenerator GetHtmlGenerator();
     }
 }

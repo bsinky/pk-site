@@ -8,6 +8,7 @@ namespace pk_site.Pokemon
         string Pokeball { get; }
         string Ability { get; }
         string Nickname { get; }
+        string ImagePath { get; }
 
         int CurrentLevel { get; }
         

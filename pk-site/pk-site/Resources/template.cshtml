@@ -9,11 +9,11 @@
 <head>
 </head>
 <body>
-	<h1>@Model.Generation</h1>
+	<h1>@Model.GameTitle</h1>
 	<div class="trainer">
 		<label>Name: @Model.TrainerInfo.Name</label>
 		<label>@Model.TrainerInfo.Gender</label>
-		<label>Money: @Model.TrainerInfo.Money</label>
+		<label>Money: @Model.TrainerInfo.FormattedMoney</label>
 		<label>Play Time: @Model.TrainerInfo.PlayTime</label>
 	</div>
 
@@ -21,9 +21,16 @@
 		@foreach (var pokemon in Model.PartyMembers)
 		{
 			<div class="pokemon">
-				<label>@pokemon.Nickname</label>
-				<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
-				<label>@pokemon.Ability</label>
+				<div class="card">
+					<div class="sub-card">
+						<label>@pokemon.Nickname</label>
+						<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
+						<label>@pokemon.Ability</label>
+					</div>
+					<div class="pokemon-image sub-card">
+						<img src="@pokemon.ImagePath"/>
+					</div>
+				</div>
 				<div class="moves">
 				@foreach (string move in pokemon.Moves)
 				{
