@@ -26,14 +26,21 @@
 			<div class="container">
 				<div class="columns is-mobile">
 					<div class="column is-half is-offset-one-quarter">
-						<div class="content">
-							<h2 class="title">Name: <strong>@Model.TrainerInfo.Name</strong></h2>
-							<p class="subtitle">
-								Money: <strong>@Model.TrainerInfo.FormattedMoney</strong>
-								<br/>
-								Play Time: <strong>@Model.TrainerInfo.PlayTime</strong>
-							</p>
-						</div>
+						<article class="media">
+							<div class="media-content">
+								<h2 class="title">Name: <strong>@Model.TrainerInfo.Name</strong></h2>
+								<p class="subtitle">
+									Money: <strong>@Model.TrainerInfo.FormattedMoney</strong>
+									<br/>
+									Play Time: <strong>@Model.TrainerInfo.PlayTime</strong>
+								</p>
+							</div>
+							<div class="media-right">
+								<figure class="image is-64x64">
+									<img src="@Model.GameImagePath" alt="Game Image"/>
+								</figure>
+							</div>
+						</article>
 					</div>
 				</div>
 			</div>
@@ -65,10 +72,12 @@
 							</article>
 							<article class="media">
 								<div class="media-content">
-								@foreach (string move in pokemon.Moves)
-								{
-									<p class="subtitle">@move</p>
-								}
+									<p class="subtitle">
+									@foreach (string move in pokemon.Moves)
+									{
+										@move<br/>
+									}
+									</p>
 								</div>
 							</article>
 						</div>

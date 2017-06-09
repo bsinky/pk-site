@@ -1,6 +1,5 @@
 ﻿using pk_site.Html;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace pk_site.Pokemon
 {
@@ -15,5 +14,6 @@ namespace pk_site.Pokemon
         string GameTitle { get; }
         string Version { get; }
         IHtmlGenerator GetHtmlGenerator();
+        string GameImagePath { get; }
     }
 }

@@ -14,6 +14,7 @@ namespace pk_site.Pokemon
         private GameInfo.GameStrings _gameStrings;
         private string _outputDirectory;
         private Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)> _pokemonImageCache = new Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)>();
+        private string _gameSpriteRelativePath;
 
         private string outputImageRelativeDirectory => "img";
         private string outputImageDirectory => Path.Combine(_outputDirectory, outputImageRelativeDirectory);
@@ -28,6 +29,7 @@ namespace pk_site.Pokemon
             {
                 ProcessPokemon(pokemon);
             }
+            ProcessGameSprite();
         }
 
         private (int, int, int, int, bool, bool, int) GetImageKey(PKM pkm)
@@ -36,12 +38,22 @@ namespace pk_site.Pokemon
         private void ProcessPokemon(PKM pkm)
         {
             var imageKey = GetImageKey(pkm);
-            Image generatedImage = PKMUtil.getSprite(pkm.Species, pkm.AltForm, pkm.Gender, pkm.SpriteItem, pkm.IsEgg, pkm.IsShiny, pkm.Format);
+            Image generatedImage = pkm.Sprite();
             string imageFileName = ImageKeyToFileName(imageKey) + ".png";
             string relativePath = string.Join("/", outputImageRelativeDirectory, imageFileName);
             string outputPath = string.Join("/", outputImageDirectory, imageFileName);
 
             _pokemonImageCache[imageKey] = (outputPath, relativePath, generatedImage);
+        }
+
+        private void ProcessGameSprite()
+        {
+            var gameSprite = _saveFile.Sprite();
+            var imageFileName = "game.png";
+            var absolutePath = Path.Combine(outputImageDirectory, imageFileName);
+            var relativePath = string.Join("/", outputImageRelativeDirectory, imageFileName);
+            gameSprite.Save(absolutePath);
+            _gameSpriteRelativePath = relativePath;
         }
 
         private string GetImagePath(PKM pkm)
@@ -78,6 +90,7 @@ namespace pk_site.Pokemon
         public string GetSpecies(int species) => _gameStrings.specieslist[species];
         public string GameTitle => _gameStrings.gamelist[_saveFile.Generation];
         public string Version => _saveFile.Version.ToString();
+        public string GameImagePath => _gameSpriteRelativePath;
 
         public IHtmlGenerator GetHtmlGenerator()
         {
