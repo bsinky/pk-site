@@ -1,7 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
+	<meta charset="UTF-8">
 	<title>@ViewBag.Title</title>
 
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css" rel="stylesheet" type="text/css"/>
 	@foreach (var css in @ViewBag.CSSFiles)
 	{
 		<link href="@css" rel="stylesheet" type="text/css"/>
@@ -9,36 +11,71 @@
 <head>
 </head>
 <body>
-	<h1>@Model.GameTitle</h1>
-	<div class="trainer">
-		<label>Name: @Model.TrainerInfo.Name</label>
-		<label>@Model.TrainerInfo.Gender</label>
-		<label>Money: @Model.TrainerInfo.FormattedMoney</label>
-		<label>Play Time: @Model.TrainerInfo.PlayTime</label>
-	</div>
+	<section class="is-medium has-text-centered">
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title is-2">
+					<strong>@Model.GameTitle</strong
+				</h1>
+			</div>
+		</div>
+	</section>
 
-	<div class="pokemon-container">
-		@foreach (var pokemon in Model.PartyMembers)
-		{
-			<div class="pokemon">
-				<div class="card">
-					<div class="sub-card">
-						<label>@pokemon.Nickname</label>
-						<label>Lvl. @pokemon.CurrentLevel @pokemon.Species</label>
-						<label>@pokemon.Ability</label>
+	<section class="hero is-primary">
+		<div class="hero-body">
+			<div class="container">
+				<div class="columns is-mobile">
+					<div class="column is-half is-offset-one-quarter">
+						<div class="content">
+							<h2 class="title">Name: <strong>@Model.TrainerInfo.Name</strong></h2>
+							<p class="subtitle">
+								Money: <strong>@Model.TrainerInfo.FormattedMoney</strong>
+								<br/>
+								Play Time: <strong>@Model.TrainerInfo.PlayTime</strong>
+							</p>
+						</div>
 					</div>
-					<div class="pokemon-image sub-card">
-						<img src="@pokemon.ImagePath"/>
-					</div>
-				</div>
-				<div class="moves">
-				@foreach (string move in pokemon.Moves)
-				{
-					<div class="move">@move</div>
-				}
 				</div>
 			</div>
-		}
-	</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<div class="columns is-multiline is-mobile">
+				@foreach (var pokemon in Model.PartyMembers)
+				{
+					<div class="column is-one-third">
+						<div class="box">
+							<article class="media">
+								<div class="media-content">
+									<div class="content">
+										<strong class="subtitle">@pokemon.Nickname</strong>
+										<br/>
+										Lvl. @pokemon.CurrentLevel @pokemon.Species
+										<br/>
+										@pokemon.Ability
+									</div>
+								</div>
+								<div class="media-right">
+									<figure class="image is-64x64">
+										<img src="@pokemon.ImagePath" alt="Pokemon Image"/>
+									</figure>
+								</div>
+							</article>
+							<article class="media">
+								<div class="media-content">
+								@foreach (string move in pokemon.Moves)
+								{
+									<p class="subtitle">@move</p>
+								}
+								</div>
+							</article>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
 </body>
 </html>

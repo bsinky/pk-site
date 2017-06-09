@@ -64,10 +64,7 @@ namespace pk_site.Html
             }
         }
 
-        protected virtual IDictionary<string, string> CSSFilesToCopy => new Dictionary<string, string>()
-        {
-            ["Resources/main.css"] = "main.css"
-        };
+        protected virtual IDictionary<string, string> CSSFilesToCopy => new Dictionary<string, string>();
 
         /// <summary>
         /// Returns an IEnumerable of relative CSS paths copied to relative outputDirectory paths
@@ -80,14 +77,6 @@ namespace pk_site.Html
             }
 
             return CSSFilesToCopy.Values;
-        }
-
-        private void CopyImages(string outputDirectory, IPokemonSaveInfo saveInfo)
-        {
-            foreach (var pokemon in saveInfo.PartyMembers)
-            {
-
-            }
         }
     }
 }

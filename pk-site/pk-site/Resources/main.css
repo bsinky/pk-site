@@ -1,16 +1,32 @@
-﻿@charset "UTF-8"
+@charset "UTF-8"
+
+html, body {
+	font-family: sans-serif;
+}
 
 body {
-	background-color: #d1d1f5;
+	background-color: #dadada;
 	font-family: sans-serif;
+}
+
+h1 {
+	text-align: center;
 }
 
 .trainer, .pokemon {
 	background-color: #cecee2;
 }
 
+.trainer {
+	width: 50%;
+	margin: 0 auto;
+	padding: 20px;
+	border-radius: 10px;
+}
+
 .trainer > label {
 	display: block;
+	border-bottom: 1px solid #9c9cdc;
 }
 
 .pokemon-container {
