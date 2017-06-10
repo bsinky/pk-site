@@ -9,6 +9,7 @@ namespace pk_site.Pokemon
         string Ability { get; }
         string Nickname { get; }
         string ImagePath { get; }
+        string HeldItem { get; }
 
         int CurrentLevel { get; }
         

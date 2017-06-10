@@ -75,11 +75,12 @@ namespace pk_site.Pokemon
                 member.Nickname,
                 member.CurrentLevel,
                 member.Moves.Select(move => GetMove(move)),
-                GetImagePath(member)));
+                GetImagePath(member),
+                _gameStrings.itemlist[member.HeldItem]));
 
         public ITrainerInfo TrainerInfo => new TrainerInfo(
             _saveFile.OT,
-            default(Genders), /* TODO */
+            _saveFile.Gender == 0 ? Genders.Boy : Genders.Girl,
             _saveFile.Money,
             Enumerable.Empty<string>(), /* TODO */
             _saveFile.PlayTimeString);
