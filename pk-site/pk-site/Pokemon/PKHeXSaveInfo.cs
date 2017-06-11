@@ -88,7 +88,9 @@ namespace pk_site.Pokemon
             _saveFile.Gender == 0 ? Genders.Boy : Genders.Girl,
             _saveFile.Money,
             Enumerable.Empty<string>(), /* TODO */
-            _saveFile.PlayTimeString);
+            _saveFile.PlayTimeString,
+            _saveFile.SeenCount,
+            _saveFile.CaughtCount);
 
         public string GetAbility(int ability) => _gameStrings.abilitylist[ability];
         public string GetBall(int ball) => _gameStrings.balllist[ball];

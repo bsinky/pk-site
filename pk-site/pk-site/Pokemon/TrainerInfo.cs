@@ -4,27 +4,26 @@ namespace pk_site.Pokemon
 {
     public class TrainerInfo : ITrainerInfo
     {
-        private string _name;
-        private Genders _gender;
-        private uint _money;
-        private IEnumerable<string> _badges;
-        private string _playTime;
+        public string Name { get; private set; }
+        public Genders Gender { get; private set; }
+        public uint Money { get; private set; }
+        public string FormattedMoney => Money.ToString("C0");
+        public IEnumerable<string> Badges { get; private set; }
+        public string PlayTime { get; private set; }
+        public int SeenCount { get; private set; }
+        public int CaughtCount { get; private set; }
 
         public TrainerInfo(string name, Genders gender, uint money,
-            IEnumerable<string> badges, string playTime)
+            IEnumerable<string> badges, string playTime, int seenCount,
+            int caughtCount)
         {
-            _name = name;
-            _gender = gender;
-            _money = money;
-            _badges = badges;
-            _playTime = playTime;
+            Name = name;
+            Gender = gender;
+            Money = money;
+            Badges = badges;
+            PlayTime = playTime;
+            SeenCount = seenCount;
+            CaughtCount = caughtCount;
         }
-
-        public string Name => _name;
-        public Genders Gender => _gender;
-        public uint Money => _money;
-        public string FormattedMoney => _money.ToString("C0");
-        public IEnumerable<string> Badges => _badges;
-        public string PlayTime => _playTime;
     }
 }

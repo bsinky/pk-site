@@ -10,6 +10,8 @@ namespace pk_site.Pokemon
         string FormattedMoney { get; }
         IEnumerable<string> Badges { get; }
         string PlayTime { get; }
+        int SeenCount { get; }
+        int CaughtCount { get; }
     }
     
     public enum Genders
