@@ -88,5 +88,26 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="section">
+		<div class="container">
+			<p class="title has-text-centered">
+			Pokemon in Boxes
+			</p>
+			<div class="columns is-multiline is-mobile">
+				@foreach (var pokemon in Model.BoxPokemon)
+				{
+					<div class="column is-one-tenth">
+						<div class="box">
+							<figure class="image is-64x64">
+								<img src="@pokemon.ImagePath" alt="Pokemon Image"/>
+							</figure>
+							<p>@pokemon.Species</p>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
 </body>
 </html>

@@ -7,6 +7,7 @@ namespace pk_site.Pokemon
     {
         ITrainerInfo TrainerInfo { get; }
         IEnumerable<IPokemonInfo> PartyMembers { get; }
+        IEnumerable<IPokemonInfo> BoxPokemon { get; }
         string GetBall(int ball);
         string GetSpecies(int species);
         string GetAbility(int ability);

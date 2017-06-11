@@ -15,6 +15,7 @@ namespace pk_site.Pokemon
         private string _outputDirectory;
         private Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)> _pokemonImageCache = new Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)>();
         private string _gameSpriteRelativePath;
+        private IEnumerable<PKM> _boxPokemon;
 
         private string outputImageRelativeDirectory => "img";
         private string outputImageDirectory => Path.Combine(_outputDirectory, outputImageRelativeDirectory);
@@ -24,8 +25,9 @@ namespace pk_site.Pokemon
             _saveFile = SaveUtil.getVariantSAV(File.ReadAllBytes(saveFilePath));
             _gameStrings = GameInfo.getStrings(language);
             _outputDirectory = outputDirectory;
+            _boxPokemon = _saveFile.BoxData.Where(bpkm => bpkm.Species > 0);
             Directory.CreateDirectory(outputImageDirectory);
-            foreach (var pokemon in _saveFile.PartyData)
+            foreach (var pokemon in _saveFile.PartyData.Concat(_boxPokemon))
             {
                 ProcessPokemon(pokemon);
             }
@@ -67,16 +69,19 @@ namespace pk_site.Pokemon
             return "";
         }
 
-        public IEnumerable<IPokemonInfo> PartyMembers =>
-            _saveFile.PartyData.Select(member => new PokemonInfo(
-                GetSpecies(member.Species),
-                GetBall(member.Ball),
-                GetAbility(member.Ability),
-                member.Nickname,
-                member.CurrentLevel,
-                member.Moves.Select(move => GetMove(move)),
-                GetImagePath(member),
-                _gameStrings.itemlist[member.HeldItem]));
+        public IEnumerable<IPokemonInfo> PartyMembers => _saveFile.PartyData.Select(member => GetPokemonInfo(member));
+        public IEnumerable<IPokemonInfo> BoxPokemon => _boxPokemon.Select(member => GetPokemonInfo(member));
+
+        private IPokemonInfo GetPokemonInfo(PKM pkm) => 
+            new PokemonInfo(
+                GetSpecies(pkm.Species),
+                GetBall(pkm.Ball),
+                GetAbility(pkm.Ability),
+                pkm.Nickname,
+                pkm.CurrentLevel,
+                pkm.Moves.Select(move => GetMove(move)),
+                GetImagePath(pkm),
+                _gameStrings.itemlist[pkm.HeldItem]);
 
         public ITrainerInfo TrainerInfo => new TrainerInfo(
             _saveFile.OT,
