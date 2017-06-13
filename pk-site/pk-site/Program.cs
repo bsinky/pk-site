@@ -37,6 +37,15 @@ namespace pk_site
             [Option('l', "language", DefaultValue = "en", HelpText = "Language of PKHeX resource files to use")]
             public string Language { get; set; }
 
+            [Option('a', "absoluteimagedir", DefaultValue = null, HelpText = "Absolute path for images")]
+            public string AbsoluteImageDirectory { get; set; }
+
+            [Option('r', "relativeimagedir", DefaultValue = null, HelpText = "Relative path for images")]
+            public string RelativeImageDirectory { get; set; }
+
+            [Option('t', "type", DefaultValue = "page", HelpText = "Type of output to generate.  Options are \"page\" or \"blog\".")]
+            public string OutputType { get; set; }
+
             [ParserState]
             public IParserState LastParserState { get; set; }
 
