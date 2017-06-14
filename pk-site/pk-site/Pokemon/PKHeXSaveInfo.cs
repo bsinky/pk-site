@@ -14,17 +14,34 @@ namespace pk_site.Pokemon
         private GameInfo.GameStrings _gameStrings;
         private string _outputDirectory;
         private Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)> _pokemonImageCache = new Dictionary<(int, int, int, int, bool, bool, int), (string, string, Image)>();
+        private string _absoluteImageDirectory;
+        private string _relativeImagePath;
         private string _gameSpriteRelativePath;
+        private string _type;
         private IEnumerable<PKM> _boxPokemon;
 
-        private string outputImageRelativeDirectory => "img";
-        private string outputImageDirectory => Path.Combine(_outputDirectory, outputImageRelativeDirectory);
+        private string outputImageDirectory => 
+            !string.IsNullOrEmpty(_absoluteImageDirectory)
+                ? _absoluteImageDirectory
+                : Path.Combine(_outputDirectory, outputImageRelativeDirectory);
+        private string outputImageRelativeDirectory =>
+            !string.IsNullOrEmpty(_relativeImagePath)
+                ? _relativeImagePath
+                : "img";
+        private string Type =>
+            !string.IsNullOrEmpty(_type)
+                ? _type
+                : "webpage";
 
-        public PKHeXSaveInfo(string language, string saveFilePath, string outputDirectory)
+        public PKHeXSaveInfo(string language, string saveFilePath, string outputDirectory, string type,
+            string absoluteImageDirectory, string relativeImageDirectory)
         {
             _saveFile = SaveUtil.getVariantSAV(File.ReadAllBytes(saveFilePath));
             _gameStrings = GameInfo.getStrings(language);
             _outputDirectory = outputDirectory;
+            _type = type;
+            _absoluteImageDirectory = absoluteImageDirectory;
+            _relativeImagePath = relativeImageDirectory;
             _boxPokemon = _saveFile.BoxData.Where(bpkm => bpkm.Species > 0);
             Directory.CreateDirectory(outputImageDirectory);
             foreach (var pokemon in _saveFile.PartyData.Concat(_boxPokemon))
@@ -103,7 +120,11 @@ namespace pk_site.Pokemon
         public IHtmlGenerator GetHtmlGenerator()
         {
             WriteImagesToDisk();
-            return new HtmlGenerator($"{GameTitle} ({Version})", this);
+            switch (Type)
+            {
+                case "blogpost": return new JekyllMarkdownGenerator($"{GameTitle} ({Version})", this);
+                default:  return new HtmlGenerator($"{GameTitle} ({Version})", this);
+            }
         }
 
         private void WriteImagesToDisk()

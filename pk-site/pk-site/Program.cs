@@ -17,7 +17,8 @@ namespace pk_site
                 return;
             }
 
-            IPokemonSaveInfo saveInfo = new PKHeXSaveInfo(options.Language, options.SaveFilePath, options.OutputDirectory);
+            IPokemonSaveInfo saveInfo = new PKHeXSaveInfo(options.Language, options.SaveFilePath, 
+                options.OutputDirectory, options.Type, options.AbsoluteImageDirectory, options.RelativeImagePath);
             IHtmlGenerator renderer = saveInfo.GetHtmlGenerator();
 
             renderer.Write(options.OutputDirectory, saveInfo);
@@ -36,6 +37,15 @@ namespace pk_site
 
             [Option('l', "language", DefaultValue = "en", HelpText = "Language of PKHeX resource files to use")]
             public string Language { get; set; }
+
+            [Option('a', "absoluteimagedirectory", HelpText = "Absolute path to image directory")]
+            public string AbsoluteImageDirectory { get; set; }
+
+            [Option('r', "relativeimagepath", HelpText = "Relative to image directory")]
+            public string RelativeImagePath { get; set; }
+
+            [Option('t', "type", HelpText = "Type of output to generate")]
+            public string Type { get; set; }
 
             [ParserState]
             public IParserState LastParserState { get; set; }

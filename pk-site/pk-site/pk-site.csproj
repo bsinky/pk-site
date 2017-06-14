@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Html\JekyllMarkdownGenerator.cs" />
     <Compile Include="Html\HtmlGenerator.cs" />
     <Compile Include="Html\IHtmlGenerator.cs" />
     <Compile Include="Pokemon\ITrainerInfo.cs" />
@@ -139,6 +140,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\blogpost.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\template.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
