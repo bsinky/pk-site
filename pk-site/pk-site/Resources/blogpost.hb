@@ -12,9 +12,9 @@ Money: {{Model.TrainerInfo.FormattedMoney}}
 
 Play Time: {{Model.TrainerInfo.PlayTime}}
 
-Pokemon Caught: {{Model.TrainerInfo.CaughtCount}}, Seen: {{Model.TrainerInfo.SeenCount}}
+PokÃ©on Caught: {{Model.TrainerInfo.CaughtCount}}, Seen: {{Model.TrainerInfo.SeenCount}}
 
-#### Party Pokemon
+#### Party PokÃ©mo
 
 <section class="section">
 	<div>
@@ -26,7 +26,7 @@ Pokemon Caught: {{Model.TrainerInfo.CaughtCount}}, Seen: {{Model.TrainerInfo.See
 	</div>
 </section>
 
-#### Pokemon in Boxes  ({{BoxPokemonCount}}!)
+#### PokÃ©mon in Boxes  ({{BoxPokemonCount}}!)
 
 <section class="section">
 	<div>
