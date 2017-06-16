@@ -14,5 +14,6 @@ namespace pk_site.Pokemon
         int CurrentLevel { get; }
         
         IEnumerable<string> Moves { get; }
+        string MovesList { get; }
     }
 }

@@ -18,5 +18,8 @@
 				</figure>
 			</div>
 		</article>
+		<div>
+			<small>{{MovesList}}</small>
+		</div>
 	</div>
 </div>

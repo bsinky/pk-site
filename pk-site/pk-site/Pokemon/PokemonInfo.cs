@@ -10,6 +10,8 @@ namespace pk_site.Pokemon
         public string Nickname { get; private set; }
         public int CurrentLevel { get; private set; }
         public IEnumerable<string> Moves { get; private set; }
+        public string MovesList => string.Join(", ", Moves);
+
         public string ImagePath { get; private set; }
         public string HeldItem { get; private set; }
 
