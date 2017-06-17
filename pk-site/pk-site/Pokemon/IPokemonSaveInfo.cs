@@ -5,6 +5,8 @@ namespace pk_site.Pokemon
 {
     public interface IPokemonSaveInfo
     {
+        string SaveFilePath { get; }
+        string SaveGameFileName { get; }
         ITrainerInfo TrainerInfo { get; }
         IEnumerable<IPokemonInfo> PartyMembers { get; }
         IEnumerable<IPokemonInfo> BoxPokemon { get; }

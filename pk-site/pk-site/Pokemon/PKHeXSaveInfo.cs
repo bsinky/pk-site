@@ -33,9 +33,14 @@ namespace pk_site.Pokemon
                 ? _type
                 : "webpage";
 
+        public string SaveFilePath { get; private set; }
+
+        public string SaveGameFileName => Path.GetFileNameWithoutExtension(SaveFilePath);
+
         public PKHeXSaveInfo(string language, string saveFilePath, string outputDirectory, string type,
             string absoluteImageDirectory, string relativeImageDirectory)
         {
+            SaveFilePath = saveFilePath;
             _saveFile = SaveUtil.getVariantSAV(File.ReadAllBytes(saveFilePath));
             _gameStrings = GameInfo.getStrings(language);
             _outputDirectory = outputDirectory;
@@ -122,8 +127,8 @@ namespace pk_site.Pokemon
             WriteImagesToDisk();
             switch (Type)
             {
-                case "blogpost": return new JekyllMarkdownGenerator($"{GameTitle} ({Version})", this);
-                default:  return new HtmlGenerator($"{GameTitle} ({Version})", this);
+                case "blogpost": return new JekyllMarkdownGenerator(SaveGameFileName, this);
+                default:  return new HtmlGenerator(SaveGameFileName, this);
             }
         }
 

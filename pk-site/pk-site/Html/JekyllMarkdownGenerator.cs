@@ -21,13 +21,12 @@ namespace pk_site.Html
         public void Write(string outputDirectory, IPokemonSaveInfo saveInfo)
         {
             Directory.CreateDirectory(outputDirectory);
-            string titleForContent = $"{DateTime.Now:yyyy-MM-dd} - {_title}";
             string titleForPostFile = $"{DateTime.Now:yyyy-MM-dd}-{_title.Replace('_', '-').Replace(' ', '-')}";
             string outputFile = Path.Combine(outputDirectory, $"{titleForPostFile}.md");
 
             var data = new
             {
-                Title = titleForContent,
+                Title = _title,
                 Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
                 BoxPokemonCount = saveInfo.BoxPokemon.Count(),
                 Model = saveInfo
