@@ -1,7 +1,8 @@
 ﻿---
-layout: pokemonpost
+layout: post
 title: {{Title}}
 date: {{Date}}
+excerpt: {{Title}}
 categories: ["pokemon"]
 tags: ["pokemon", "video games"]
 ---

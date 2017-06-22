@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="column">
 	<div class="box">
 		<article class="media">
 			<div class="media-content">
