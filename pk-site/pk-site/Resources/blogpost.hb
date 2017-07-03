@@ -5,6 +5,7 @@ date: {{Date}}
 excerpt: {{Title}}
 categories: ["pokemon"]
 tags: ["pokemon", "video games"]
+comments: true
 ---
 
 ### Name: {{Model.TrainerInfo.Name}}
